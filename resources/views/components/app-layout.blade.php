@@ -58,18 +58,6 @@
                 x-transition:leave-end="translate-y-3 opacity-0"
                 class="flex flex-col items-center gap-2 rounded-[28px] border border-white/15 bg-gradient-to-b from-[#B36D2A] via-[#A85E22] to-[#8B451A] p-2.5 shadow-[0_18px_36px_rgba(0,0,0,0.24)] backdrop-blur-xl"
             >
-                @if(($settings['show_floating_cart'] ?? '1') === '1')
-                    <a href="#" @click.prevent="open = false" class="group relative flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/20" title="{{ __('navigation.cart') }}" aria-label="{{ __('navigation.cart') }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        @if(filled($settings['floating_cart_badge'] ?? ''))
-                            <span class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-bold text-white ring-2 ring-charcoal">
-                                {{ $settings['floating_cart_badge'] }}
-                            </span>
-                        @endif
-                    </a>
-                @endif
 
                 @if(($settings['show_floating_zalo'] ?? '1') === '1' && filled($settings['floating_zalo'] ?? ''))
                     <a href="{{ $settings['floating_zalo'] }}" target="_blank" rel="noopener noreferrer" @click="open = false" class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-[10px] font-extrabold tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/20" title="Chat Zalo" aria-label="Chat Zalo">

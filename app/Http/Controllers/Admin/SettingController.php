@@ -33,6 +33,10 @@ class SettingController extends Controller
             'hero_background_color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'hero_background_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:6144', 'dimensions:min_width=1200,min_height=600'],
             'remove_hero_background_image' => ['nullable', 'boolean'],
+            'hero_eyebrow' => ['required', 'string', 'max:150'],
+            'hero_title' => ['required', 'string', 'max:255'],
+            'hero_description' => ['required', 'string', 'max:2000'],
+
             'stat_1_value' => ['required', 'string', 'max:30'],
             'stat_1_label' => ['required', 'string', 'max:100'],
             'stat_2_value' => ['required', 'string', 'max:30'],
@@ -102,6 +106,10 @@ class SettingController extends Controller
             'site_logo' => $siteLogo,
             'hero_background_color' => strtoupper($validated['hero_background_color']),
             'hero_background_image' => $heroBackgroundImage,
+            'hero_eyebrow' => $validated['hero_eyebrow'],
+            'hero_title' => $validated['hero_title'],
+            'hero_description' => $validated['hero_description'],
+
             'stat_1_value' => $validated['stat_1_value'],
             'stat_1_label' => $validated['stat_1_label'],
             'stat_2_value' => $validated['stat_2_value'],

@@ -6,12 +6,12 @@
         @endif
 
         <div class="relative mx-auto max-w-7xl px-6 py-28 lg:px-8 lg:py-40">
-            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-gold">Công ty TNHH Hồ Nam</p>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.35em] text-gold">{{ $settings['hero_eyebrow'] ?? 'Công ty TNHH Hồ Nam' }}</p>
             <h1 class="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
-                Thi công cảnh quan xanh cho resort, khu đô thị và công trình công cộng
+                {{ $settings['hero_title'] ?? 'Thi công cảnh quan xanh cho resort, khu đô thị và công trình công cộng' }}
             </h1>
             <p class="mt-6 max-w-2xl text-lg text-gray-300">
-                Từ khảo sát, thiết kế đến thi công và bảo dưỡng, Hồ Nam đồng hành cùng chủ đầu tư để tạo nên những không gian xanh bền vững, giàu tính thẩm mỹ và dễ vận hành.
+                {{ $settings['hero_description'] ?? 'Từ khảo sát, thiết kế đến thi công và bảo dưỡng, Hồ Nam đồng hành cùng chủ đầu tư để tạo nên những không gian xanh bền vững, giàu tính thẩm mỹ và dễ vận hành.' }}
             </p>
             <div class="mt-10 flex flex-wrap gap-4">
                 <a href="{{ route('products.index') }}" class="btn-primary">Xem dự án tiêu biểu</a>

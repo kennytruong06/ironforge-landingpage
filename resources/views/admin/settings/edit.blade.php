@@ -41,11 +41,29 @@
 
             <section class="space-y-5 border-t border-gray-100 pt-8">
                 <div>
-                    <h3 class="text-base font-bold text-charcoal">Phông banner trang chủ</h3>
-                    <p class="mt-1 text-sm text-gray-500">Chọn màu nền hoặc tải ảnh để thay phông màu xanh phía sau tiêu đề lớn. Khi có ảnh, ảnh sẽ được ưu tiên hiển thị.</p>
+                    <h3 class="text-base font-bold text-charcoal">Banner trang chủ</h3>
+                    <p class="mt-1 text-sm text-gray-500">Cập nhật tiêu đề lớn, đoạn mô tả, phông màu và ảnh nền hiển thị đầu trang chủ.</p>
                 </div>
 
                 <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <div>
+                        <label class="label">Nhãn phía trên tiêu đề</label>
+                        <input type="text" name="hero_eyebrow" value="{{ old('hero_eyebrow', $settings['hero_eyebrow'] ?? 'Công ty TNHH Hồ Nam') }}" class="input" required>
+                        @error('hero_eyebrow') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="label">Tiêu đề chính lớn</label>
+                        <input type="text" name="hero_title" value="{{ old('hero_title', $settings['hero_title'] ?? 'Thi công cảnh quan xanh cho resort, khu đô thị và công trình công cộng') }}" class="input" required>
+                        @error('hero_title') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="label">Đoạn mô tả banner</label>
+                        <textarea name="hero_description" rows="3" class="input" required>{{ old('hero_description', $settings['hero_description'] ?? 'Từ khảo sát, thiết kế đến thi công và bảo dưỡng, Hồ Nam đồng hành cùng chủ đầu tư để tạo nên những không gian xanh bền vững, giàu tính thẩm mỹ và dễ vận hành.') }}</textarea>
+                        @error('hero_description') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                    </div>
+
                     <div>
                         <label class="label">Màu nền</label>
                         <div class="flex items-center gap-3">

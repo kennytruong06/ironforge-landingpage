@@ -19,29 +19,35 @@
     <section class="bg-white py-24">
         <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2 lg:px-8">
             <div>
-                <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-gold">Câu chuyện thương hiệu</p>
-                <h2 class="section-heading">Từ một cơ sở tiền thân đến doanh nghiệp cảnh quan chuyên sâu</h2>
+                <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-gold">{{ $settings['about_eyebrow'] ?? 'Câu chuyện thương hiệu' }}</p>
+                <h2 class="section-heading">{{ $settings['about_title'] ?? 'Từ một cơ sở tiền thân đến doanh nghiệp cảnh quan chuyên sâu' }}</h2>
                 <p class="mt-6 text-gray-600 leading-relaxed">
-                    Hồ Nam phát triển trên nền tảng kinh nghiệm thực địa tích lũy qua nhiều thế hệ thi công cây xanh, đặc biệt ở những khu vực có yêu cầu cao như resort ven biển, công viên công cộng và khu đô thị mới.
+                    {{ $settings['about_description_1'] ?? 'Hồ Nam phát triển trên nền tảng kinh nghiệm thực địa tích lũy qua nhiều thế hệ thi công cây xanh, đặc biệt ở những khu vực có yêu cầu cao như resort ven biển, công viên công cộng và khu đô thị mới.' }}
                 </p>
-                <p class="mt-4 text-gray-600 leading-relaxed">
-                    Chúng tôi tin rằng một công trình cảnh quan tốt không chỉ đẹp ở thời điểm bàn giao, mà phải duy trì được giá trị sử dụng, độ an toàn và sức sống của hệ cây trong suốt nhiều năm.
-                </p>
+                @if(filled($settings['about_description_2'] ?? ''))
+                    <p class="mt-4 text-gray-600 leading-relaxed">
+                        {{ $settings['about_description_2'] }}
+                    </p>
+                @endif
 
                 <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="rounded-xl border border-gray-100 bg-gray-50 p-5">
                         <h3 class="text-lg font-bold text-charcoal">1996</h3>
-                        <p class="mt-2 text-sm text-gray-500">Tiền thân của Hồ Nam bắt đầu hình thành từ các công trình cây xanh và chăm sóc cảnh quan quy mô nhỏ.</p>
+                        <p class="mt-2 text-sm text-gray-500">{{ $settings['about_point_1'] ?? 'Tiền thân của Hồ Nam bắt đầu hình thành từ các công trình cây xanh và chăm sóc cảnh quan quy mô nhỏ.' }}</p>
                     </div>
                     <div class="rounded-xl border border-gray-100 bg-gray-50 p-5">
                         <h3 class="text-lg font-bold text-charcoal">2006</h3>
-                        <p class="mt-2 text-sm text-gray-500">Doanh nghiệp chính thức hoạt động với định hướng thi công cảnh quan chuyên nghiệp.</p>
+                        <p class="mt-2 text-sm text-gray-500">{{ $settings['about_point_2'] ?? 'Doanh nghiệp chính thức hoạt động với định hướng thi công cảnh quan chuyên nghiệp.' }}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-2xl shadow-premium">
-                <img src="https://images.unsplash.com/photo-1497854536320-0fede7e7a2e4?q=80&w=1200" alt="Đội ngũ Hồ Nam thi công cảnh quan" class="h-full w-full object-cover">
+            <div class="overflow-hidden rounded-2xl shadow-premium min-h-[350px] bg-gray-100 flex items-center justify-center">
+                @if(filled($settings['about_image'] ?? null))
+                    <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($settings['about_image']) }}" alt="{{ $settings['about_title'] ?? 'Đội ngũ Hồ Nam thi công cảnh quan' }}" class="h-full w-full object-cover">
+                @else
+                    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1200" alt="Đội ngũ Hồ Nam thi công cảnh quan" class="h-full w-full object-cover">
+                @endif
             </div>
         </div>
     </section>
@@ -107,24 +113,31 @@
             </div>
 
             <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                @foreach([
-                    'Six Senses Côn Đảo',
-                    'Công viên Bãi Trước',
-                    'Ocenami Resort',
-                    'Bảo tàng Bà Rịa - Vũng Tàu',
-                    'KCN Đông Xuyên',
-                    'KDL Bến Thành - Long Hải',
-                ] as $project)
-                    <div class="card overflow-hidden bg-white">
-                        <div class="h-48 w-full bg-gradient-to-br from-charcoal via-charcoal-light to-gold/50"></div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-bold text-charcoal">{{ $project }}</h3>
-                            <p class="mt-3 text-sm text-gray-500">
-                                Dự án tiêu biểu trong danh mục cảnh quan của Hồ Nam, tập trung vào hiệu quả sử dụng, tỷ lệ cây sống và trải nghiệm không gian lâu dài.
-                            </p>
+                @forelse($featuredProducts as $product)
+                    <div class="card overflow-hidden bg-white flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-52 w-full overflow-hidden bg-gray-100">
+                                <img src="{{ $product->image_url }}" alt="{{ $product->title }}" class="h-full w-full object-cover transition duration-500 hover:scale-105">
+                                <span class="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-xs font-bold uppercase text-charcoal">{{ $product->category->name ?? 'Dự án' }}</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="mt-1 text-lg font-bold text-charcoal leading-snug hover:text-gold transition">
+                                    <a href="{{ route('products.show', $product) }}">{{ $product->title }}</a>
+                                </h3>
+                                <p class="mt-3 text-sm text-gray-500 line-clamp-3">
+                                    {{ $product->description ?? 'Dự án tiêu biểu trong danh mục cảnh quan của Hồ Nam, tập trung vào hiệu quả sử dụng, tỷ lệ cây sống và trải nghiệm không gian lâu dài.' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2">
+                            <a href="{{ route('products.show', $product) }}" class="inline-flex items-center gap-1 text-sm font-semibold text-charcoal hover:text-gold">
+                                Xem chi tiết &rarr;
+                            </a>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p class="col-span-full text-center text-gray-500 py-8">Chưa có dự án tiêu biểu nào trong hệ thống.</p>
+                @endforelse
             </div>
         </div>
     </section>

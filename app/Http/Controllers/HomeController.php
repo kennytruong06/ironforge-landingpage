@@ -40,6 +40,18 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('about');
+        $settings = Schema::hasTable('settings')
+            ? Setting::pluck('value', 'key')->all()
+            : [];
+
+        $featuredProducts = Product::with('category')
+            ->featured()
+            ->latest()
+            ->take(6)
+            ->get();
+
+        return view('about', compact('settings', 'featuredProducts'));
     }
 }
+
+
